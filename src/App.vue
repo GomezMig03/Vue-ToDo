@@ -1,0 +1,115 @@
+<script setup>
+import {ref} from 'vue'
+const todo = ref([
+  {id: 1, tarea: "Aprender Vue.js", hecha: false},
+  {id: 2, tarea: "Aprender React", hecha: false},
+  {id: 3, tarea: "Comprar el pan", hecha: true}
+])
+const nuevaTarea = ref("")
+const eliminarTareas = ()=>{
+  todo.value = todo.value.filter(x => !x.hecha)
+}
+const addTarea = () => {
+  todo.value.push({
+    id: todo.value.length+1,
+    tarea: nuevaTarea.value,
+    hecha: false
+  })
+  nuevaTarea.value=""
+}
+const toggleHecho = (e)=> {
+  e.hecha = !e.hecha
+}
+</script>
+
+<template>
+<main id="app">
+  <article id="todoapp">
+  <form @submit.prevent="addTarea" id="form-tarea">
+  <input type="text" placeholder="Añade tarea" v-model="nuevaTarea" id="input-text-tarea">
+    <button :disabled="nuevaTarea.length < 1 || nuevaTarea.length > 100" type="submit" id="button-tarea">Añadir tarea</button>
+  </form>
+  <ul id="lista">
+    <li id="list-item" v-for="item in todo" @click="toggleHecho(item)" :class="{tachado: item.hecha}">{{item.tarea}}</li>
+  </ul>
+  </article>
+  <button id="button-eliminar-tarea" @click="eliminarTareas" :disabled="todo.length < 1" >Eliminar tareas terminadas</button>
+</main>
+</template>
+
+<style scoped>
+#app{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+}
+#todoapp{
+  display: block;
+  text-align: center;
+  padding: 2vw;
+  background-color: #383535;
+  border-radius: 10px;
+}
+#lista {
+  list-style-type: none;
+}
+#form-tarea{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+#input-text-tarea{
+  width: 35%;
+  background-color: #464242;
+}
+#input-text-tarea:focus{
+  background-color: #343131;
+}
+#button-tarea {
+  padding: 10px 20px;
+  margin-left: 50px;
+  width: 35%;
+  background-color: #6c6cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#button-tarea:hover {
+  background-color: #3394f1;
+}
+#button-tarea:active {
+  background-color: #2881da;
+}
+#button-tarea[disabled] {
+  background-color: #a8a8f5;
+  cursor: initial;
+}
+#list-item {
+  background-color: #3394f1;
+  margin: 10px;
+  border-radius: 5px;
+  user-select: none;
+}
+#list-item:hover{
+  cursor:pointer;
+}
+.tachado{
+  text-decoration: line-through;
+  text-decoration-style: solid;
+  text-decoration-color: #535bf2;
+  background-color: #f34646;
+}
+#button-eliminar-tarea {
+  margin: 5px;
+}
+#button-eliminar-tarea:hover{
+  background-color: #260000;
+}
+#button-eliminar-tarea[disabled] {
+  background-color: #2a2a2a;
+  cursor: initial;
+}
+</style>
