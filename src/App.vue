@@ -33,7 +33,7 @@ const toggleHecho = (e)=> {
     <li id="list-item" v-for="item in todo" @click="toggleHecho(item)" :class="{tachado: item.hecha}">{{item.tarea}}</li>
   </ul>
   </article>
-  <button id="button-eliminar-tarea" @click="eliminarTareas" :disabled="todo.length < 1" >Eliminar tareas terminadas</button>
+  <button type="button" id="button-eliminar-tarea" @click="eliminarTareas" :disabled="todo.length < 1" >Eliminar tareas terminadas</button>
 </main>
 </template>
 
@@ -42,23 +42,29 @@ const toggleHecho = (e)=> {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  width: 100%;
+  align-items: center;
+  margin: 0;
 }
 #todoapp{
   display: block;
   text-align: center;
+  width: 100%;
   padding: 2vw;
   background-color: #383535;
   border-radius: 10px;
 }
 #lista {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  flex-flow: column nowrap;
   list-style-type: none;
 }
 #form-tarea{
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
 }
 #input-text-tarea{
   width: 35%;
@@ -68,8 +74,7 @@ const toggleHecho = (e)=> {
   background-color: #343131;
 }
 #button-tarea {
-  padding: 10px 20px;
-  margin-left: 50px;
+  padding: 0.3vw 0.6vw;
   width: 35%;
   background-color: #6c6cff;
   color: white;
@@ -89,7 +94,8 @@ const toggleHecho = (e)=> {
 }
 #list-item {
   background-color: #3394f1;
-  margin: 10px;
+  width: 80%;
+  margin: 0.3vw;
   border-radius: 5px;
   user-select: none;
 }
@@ -103,7 +109,7 @@ const toggleHecho = (e)=> {
   background-color: #f34646;
 }
 #button-eliminar-tarea {
-  margin: 5px;
+  margin: 0.3vw;
 }
 #button-eliminar-tarea:hover{
   background-color: #260000;
