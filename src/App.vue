@@ -69,6 +69,7 @@ const toggleHecho = (e)=> {
 #input-text-tarea{
   width: 35%;
   background-color: #464242;
+  padding: 3px;
 }
 #input-text-tarea:focus{
   background-color: #343131;
