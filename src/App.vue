@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from 'vue'
+import Task from "./components/Task.vue";
 const todo = ref([
   {id: 1, tarea: "Aprender Vue.js", hecha: false},
   {id: 2, tarea: "Aprender React", hecha: false},
@@ -17,9 +18,6 @@ const addTarea = () => {
   })
   nuevaTarea.value=""
 }
-const toggleHecho = (e)=> {
-  e.hecha = !e.hecha
-}
 </script>
 
 <template>
@@ -29,9 +27,16 @@ const toggleHecho = (e)=> {
   <input type="text" placeholder="Añade tarea" v-model="nuevaTarea" id="input-text-tarea">
     <button :disabled="nuevaTarea.length < 1 || nuevaTarea.length > 100" type="submit" id="button-tarea">Añadir tarea</button>
   </form>
-  <ul id="lista">
-    <li id="list-item" v-for="item in todo" @click="toggleHecho(item)" :class="{tachado: item.hecha}">{{item.tarea}}</li>
-  </ul>
+  <section id="lista">
+    <Task
+        v-for="item in todo"
+        :id="item.id"
+        :tarea="item.tarea"
+        :hecha="item.hecha"
+        :class="{tachado: item.hecha}"
+        @click="item.hecha = !item.hecha"
+    />
+  </section>
   </article>
   <button type="button" id="button-eliminar-tarea" @click="eliminarTareas" :disabled="todo.length < 1" >Eliminar tareas terminadas</button>
 </main>
@@ -53,9 +58,16 @@ const toggleHecho = (e)=> {
   background-color: #383535;
   border-radius: 10px;
 }
+.tachado{
+  text-decoration: line-through;
+  text-decoration-style: solid;
+  text-decoration-color: #535bf2;
+  background-color: #f34646;
+}
 #lista {
   display: flex;
   padding: 0;
+  margin: 10px 0;
   align-items: center;
   flex-flow: column nowrap;
   list-style-type: none;
@@ -92,22 +104,6 @@ const toggleHecho = (e)=> {
 #button-tarea[disabled] {
   background-color: #a8a8f5;
   cursor: initial;
-}
-#list-item {
-  background-color: #3394f1;
-  width: 80%;
-  margin: 0.3vw;
-  border-radius: 5px;
-  user-select: none;
-}
-#list-item:hover{
-  cursor:pointer;
-}
-.tachado{
-  text-decoration: line-through;
-  text-decoration-style: solid;
-  text-decoration-color: #535bf2;
-  background-color: #f34646;
 }
 #button-eliminar-tarea {
   margin: 0.3vw;
