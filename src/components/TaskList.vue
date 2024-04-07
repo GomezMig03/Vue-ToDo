@@ -3,11 +3,25 @@
 import Task from "./Task.vue";
 import {ref} from 'vue'
 
-const todo = ref([
-  {id: 1, tarea: "Aprender Vue.js", hecha: false},
-  {id: 2, tarea: "Aprender React", hecha: false},
-  {id: 3, tarea: "Comprar el pan", hecha: true}
-])
+let t = JSON.parse(localStorage.getItem('tasks'))
+
+if (t == null) {
+  t =[
+    {id: 1, tarea: "Aprender Vue.js", hecha: false},
+    {id: 2, tarea: "Aprender React", hecha: false},
+    {id: 3, tarea: "Comprar el pan", hecha: true}
+  ]
+}
+
+const todo = ref(t)
+
+console.log()
+const saveTasks = ()=>{
+  localStorage.setItem('tasks', JSON.stringify(todo.value))
+}
+
+window.addEventListener('beforeunload', saveTasks)
+
 const nuevaTarea = ref("")
 const eliminarTareas = ()=>{
   todo.value = todo.value.filter(x => !x.hecha)
