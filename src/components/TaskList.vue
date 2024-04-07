@@ -74,14 +74,14 @@ const addTarea = () => {
   background-color: #383535;
   border-radius: 10px;
 }
-.tachado{
+.tachado {
   text-decoration: line-through;
   text-decoration-style: solid;
   text-decoration-color: #535bf2;
-  background-color: #f34646;
 }
 #lista {
   display: flex;
+  width: 100%;
   padding: 0;
   margin: 10px 0;
   align-items: center;

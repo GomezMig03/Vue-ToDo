@@ -52,7 +52,8 @@ button {
 }
 
 #app {
-  max-width: 1280px;
+  min-width: 640px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
